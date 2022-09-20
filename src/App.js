@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Header, List, Map } from "./components/index";
 import CssBaseline from '@mui/material/CssBaseline';
 import { getPlacesData } from "./api";
-import { Coronavirus } from "@mui/icons-material";
 
 const App = () => {
     const [places,setPlaces] = useState([]);
+    const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [coordinates, setCoordinates] = useState({});
     const [bounds, setBounds] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [type, setType] = useState("restaurants");
+    const [rating, setRating] = useState(0);
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(({coords:{latitude,longitude}}) => {
@@ -16,28 +19,43 @@ const App = () => {
         })
     },[])
 
+    useEffect(() => {
+        const filPlaces = places?.filter((place) => place.rating > rating);
+        setFilteredPlaces(filPlaces);
+    },[rating]);
+
     useEffect(() => { 
-        if(bounds){
-            getPlacesData(bounds.ne,bounds.sw)
+        if(bounds.ne && bounds.sw){
+            setLoading(true);
+            getPlacesData(type,bounds.ne,bounds.sw)
                 .then((data) => {
-                    setPlaces(data);
+                    setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
+                    setFilteredPlaces([]);
+                    setLoading(false);
                 })
         }   
-    },[coordinates,bounds])
+    },[type,coordinates,bounds])
     
     return (
         <>
             <CssBaseline>
                 <Header />
-                <Grid container spacing={2} style={{width:"100%"}}>
-                    <Grid item xs={12} md={6} >
-                        <List places={places}/>
+                <Grid container style={{width:"100%"}}>
+                    <Grid item xs={12} md={5} >
+                        <List 
+                            places={filteredPlaces.length ? filteredPlaces : places} 
+                            loading={loading}
+                            type={type}
+                            setType={setType}
+                            rating={rating}
+                            setRating={setRating}/>
                     </Grid>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={7}>
                         <Map 
                             setCoordinates={setCoordinates}
                             setBounds={setBounds}
                             coordinates={coordinates}
+                            places={filteredPlaces.length ? filteredPlaces : places}
                             />
                     </Grid>
                 </Grid>

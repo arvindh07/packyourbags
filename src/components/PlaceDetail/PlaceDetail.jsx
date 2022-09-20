@@ -9,11 +9,10 @@ import { Box } from '@mui/system';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import Rating from '@mui/material/Rating';
 
 const PlaceDetail = (props) => {
   const { place } = props;
-  console.log(place);
   return (
     <Card elevation={6}>
       <CardMedia
@@ -23,6 +22,10 @@ const PlaceDetail = (props) => {
       </CardMedia>
       <CardContent>
         <Typography gutterbottom variant="h5">{place?.name}</Typography>
+        <Box display="flex" justifyContent="space-between">
+          <Rating value={Number(place?.rating)} readOnly />
+          <Typography gutterbottom variant="subtitle1">out of {place?.num_reviews} reviews</Typography>
+        </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Price</Typography>
           <Typography gutterbottom variant="subtitle1">{place?.price_level}</Typography>
@@ -54,10 +57,10 @@ const PlaceDetail = (props) => {
         )
         }<CardActions>
           {place?.web_url && (
-            <Button size="small" onClick={() => window.open(place?.web_url,"_blank")}>Trip Advisor</Button>
+            <Button size="small" variant="outlined" sx={{color:"black"}} onClick={() => window.open(place?.web_url,"_blank")}>Trip Advisor</Button>
           )}
           {place?.website && (
-            <Button size="small" onClick={() => window.open(place?.website,"_blank")}>Official Site</Button>
+            <Button size="small" variant="outlined" sx={{color:"black"}} onClick={() => window.open(place?.website,"_blank")}>Official Site</Button>
           )}
         </CardActions>
       </CardContent>

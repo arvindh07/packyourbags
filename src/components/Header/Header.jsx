@@ -1,56 +1,21 @@
-import * as React from 'react';
+import {React} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-// import useStyles from "./Styles";
-import { Autocomplete } from '@mui/material';
 
 const Header = () => {
-  // const classes = useStyles();
-  // const h = () => {
-  //   title: {
-  //     display: 'none',
-  //     [theme.breakpoints.up('sm')]: {
-  //       display: 'block',
-  //     },
-  //   },
-  //   search: {
-  //     position: 'relative',
-  //     borderRadius: theme.shape.borderRadius,
-  //     backgroundColor: "red",
-  //     '&:hover': "blue",
-  //     marginRight: theme.spacing(2),
-  //     marginLeft: 0,
-  //     width: '100%',
-  //     [theme.breakpoints.up('sm')]: { marginLeft: theme.spacing(3), width: 'auto' },
-  //   },
-  //   searchIcon: {
-  //     padding: theme.spacing(0, 2), 
-  //     height: '100%', 
-  //     position: 'absolute', 
-  //     pointerEvents: 'none', 
-  //     display: 'flex', 
-  //     alignItems: 'center', 
-  //     justifyContent: 'center',
-  //   },
-  //   inputRoot: {
-  //     color: 'inherit',
-  //   },
-  //   inputInput: {
-  //     padding: theme.spacing(1, 1, 1, 0), 
-  //     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`, 
-  //     transition: theme.transitions.create('width'), 
-  //     width: '100%', [theme.breakpoints.up('md')]: { width: '20ch' },
-  //   },
-  //   toolbar: {
-  //     display: 'flex', 
-  //     justifyContent: 'space-between',
-  //   },
+  // const [autoComplete, setAutoComplete] = useState(null);
+  // const onLoad = (autoC) => {
+  //   setAutoComplete(autoC);
+  // }
+  // const onPlaceChanged = () => {
+  //   const lat = autoComplete.getPlace().geometry.location.lat();
+  //   const lng = autoComplete.getPlace().geometry.location.lng();
+
+  //   setCoordinates({lat,lng});
   // }
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -83,7 +48,7 @@ const Header = () => {
                 fontSize:"1rem",
               }}>
               Explore places</Typography>
-            {/* <Autocomplete> */}
+            {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}> */}
               <Box sx={{
                 // position: 'relative',
                 borderRadius: "10px",
